@@ -1,0 +1,18 @@
+[project]
+name = "hermes-kosa8"
+version = "0.1.0"
+description = "kosa8 Cloud terminal backend for Hermes Agent: commands run in a kosa8 Cloud microVM sandbox"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "kosa8" }]
+requires-python = ">=3.11"
+# httpx is already a Hermes core dependency; the bound keeps it inside Hermes's pin.
+dependencies = ["httpx>=0.27,<1"]
+
+[project.urls]
+Homepage = "https://github.com/kosa8ai/hermes-kosa8"
+Repository = "https://github.com/kosa8ai/hermes-kosa8"
+Documentation = "https://docs.kosa8.com"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

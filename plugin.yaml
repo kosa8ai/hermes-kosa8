@@ -1,0 +1,58 @@
+name: kosa8
+label: kosa8 Cloud
+manifest_version: 2
+kind: backend
+version: 0.1.0
+author: kosa8
+license: MIT
+homepage: https://github.com/kosa8ai/hermes-kosa8
+description: >
+  kosa8 Cloud terminal backend for Hermes Agent: the terminal, file and code
+  tools run in a kosa8 Cloud sandbox (a microVM) instead of on this machine.
+  Select it with `hermes config set terminal.backend kosa8`. Needs a kosa8
+  Cloud API key in KOSA8_API_KEY. Every command is an HTTPS call to the kosa8
+  Cloud API (https://api.kosa8.com by default).
+requires_hermes: ">=0.23.0"
+platforms: [linux, macos, windows]
+tags: [terminal, sandbox, microvm, cloud]
+provides_tools: []
+provides_hooks: []
+provides_middleware: []
+requires_env: [KOSA8_API_KEY]
+python_dependencies:
+  - "httpx>=0.27,<1"
+config_schema:
+  api_key:
+    type: secret
+    env: KOSA8_API_KEY
+    required: true
+    label: kosa8 Cloud API key
+    description: "API key from the kosa8 Cloud dashboard (https://app.kosa8.com)."
+  template:
+    type: str
+    default: universal-2x4
+    label: Sandbox template
+    description: >
+      Template each new sandbox starts from (GET /v1/templates lists them),
+      for example universal-2x4, universal-4x8 or python. The terminal needs
+      bash, which the universal templates have.
+  region:
+    type: str
+    default: ""
+    label: Region
+    description: "Region id such as eu-hel1; empty uses your organisation's default."
+  sleep_after_s:
+    type: int
+    default: 900
+    label: Sleep after idle (seconds)
+    description: "Idle seconds before kosa8 Cloud puts the sandbox to sleep (0 = never)."
+  ttl_s:
+    type: int
+    default: 0
+    label: Lifetime (seconds)
+    description: "Seconds until kosa8 Cloud deletes the sandbox (0 = no limit; otherwise 60 to 7776000)."
+  base_url:
+    type: str
+    default: ""
+    label: API address
+    description: "kosa8 Cloud API address; empty uses https://api.kosa8.com."
